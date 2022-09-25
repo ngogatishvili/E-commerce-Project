@@ -2,7 +2,7 @@ html {
     font-size:10px;
 }
 
-html,body,#root,.App {
+html,body,#root,.App,.fullHeight {
     height:100%;
     
 }
@@ -17,7 +17,7 @@ html,body,#root,.App {
 }
 
 .main {
-    height:calc(100% - 6.5rem);
+    height:calc(100% - 6.5rem - 5.8rem);
     max-width:1450px;
     margin:0 auto;
 
@@ -37,3 +37,4 @@ body {
 
 
 }
+
