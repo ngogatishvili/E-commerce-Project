@@ -2,10 +2,12 @@ import React from 'react'
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const MainLayout = ({children}) => {
+
+const MainLayout = ({children,...props}) => {
+  
   return (
     <div>
-        <Header/>
+        <Header {...props}/>
         <div className="main">
         {children}
         </div>

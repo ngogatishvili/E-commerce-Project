@@ -1,0 +1,22 @@
+.signin {
+    max-width:40rem;
+    margin:4rem auto 6rem;
+    border:1px solid black;
+
+    .wrap {
+        padding:0.5rem 1rem;
+        h2 {
+            display:block;
+            text-align:center;
+            text-transform:uppercase;
+            line-height:1;
+            font-weight:400;
+            margin:0 auto;
+            padding:0;
+        }
+
+        .social-btn {
+            margin:3rem auto 0;
+        }
+    }
+}
