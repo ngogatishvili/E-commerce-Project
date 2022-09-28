@@ -1,9 +1,12 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect} from 'react'
 
 import { Routes,Route,useNavigate } from "react-router-dom";
 import {  onAuthStateChanged} from "firebase/auth"
 import { handleUserProfile } from './firebase/utils';
+import {connect} from "react-redux"
 
+
+import { setCurrentUser } from './redux/User/user.action';
 
 import "./default.scss"
 // pages
@@ -22,11 +25,10 @@ import { onSnapshot } from 'firebase/firestore';
 
 
 
-const App =()=>  {
+const App =({setCurrentUser})=>  {
   const pathname=window.location.pathname;
   const navigate=useNavigate();
 
-  const [currentUser,setCurrentUser]=useState(null);
   
 
   useEffect(()=>{
@@ -34,15 +36,14 @@ const App =()=>  {
           if(userAuth) {
             handleUserProfile(userAuth).then(userRef=>{
               onSnapshot(userRef,(doc)=>{
-                console.log(doc.data())
-                setCurrentUser({id:doc.id,...doc.data()})
+               setCurrentUser({id:doc.id,...doc.data()})
                   if(pathname==="/login"||pathname==="/register") {
-                    navigate("/")
+                    navigate("/");
                   }
               })
             })
           }else{
-            setCurrentUser(null);
+            setCurrentUser(userAuth);
           }
       })
 
@@ -55,10 +56,10 @@ const App =()=>  {
     return (
       <div className="App">
           <Routes>
-            <Route path="/" element={<HomeLayout currentUser={currentUser}><Home/></HomeLayout>}/>
-            <Route path="/register" element={<MainLayout currentUser={currentUser}><Register/></MainLayout>}/>
-            <Route path="/login" element={<MainLayout currentUser={currentUser}><Login /></MainLayout>}/>
-            <Route path="/recovery" element={<MainLayout currentUser={currentUser}><Recovery/></MainLayout>}/>
+            <Route path="/" element={<HomeLayout><Home/></HomeLayout>}/>
+            <Route path="/register" element={<MainLayout><Register/></MainLayout>}/>
+            <Route path="/login" element={<MainLayout><Login /></MainLayout>}/>
+            <Route path="/recovery" element={<MainLayout><Recovery/></MainLayout>}/>
           </Routes>
       </div>
     );
@@ -66,4 +67,12 @@ const App =()=>  {
   
 }
 
-export default App;
+const mapStateToProps=({user})=>({
+      currentUser:user.currentUser
+})
+
+const mapDispatchToProps=dispatch=>({
+  setCurrentUser:user=>dispatch(setCurrentUser(user))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);

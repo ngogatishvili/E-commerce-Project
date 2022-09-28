@@ -80,7 +80,7 @@ class SignIn extends Component {
                   <Button type="submit">login</Button>
                   <div className="social-btn">
                     <div className="row">
-                      <Button onClick={SignInWithGoogle}>Sign in With Google</Button>
+                      <Button type="button" onClick={SignInWithGoogle}>Sign in With Google</Button>
                     </div>
                   </div>
 
