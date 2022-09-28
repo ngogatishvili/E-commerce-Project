@@ -10,6 +10,7 @@ import "./default.scss"
 import Home from "./pages/Home";
 import Register from "./pages/Register"
 import Login from "./pages/Login";
+import Recovery from './pages/Recovery';
 // layouts
 import MainLayout from "./layout/MainLayout"
 import HomeLayout from "./layout/HomeLayout"
@@ -33,6 +34,7 @@ const App =()=>  {
           if(userAuth) {
             handleUserProfile(userAuth).then(userRef=>{
               onSnapshot(userRef,(doc)=>{
+                console.log(doc.data())
                 setCurrentUser({id:doc.id,...doc.data()})
                   if(pathname==="/login"||pathname==="/register") {
                     navigate("/")
@@ -56,6 +58,7 @@ const App =()=>  {
             <Route path="/" element={<HomeLayout currentUser={currentUser}><Home/></HomeLayout>}/>
             <Route path="/register" element={<MainLayout currentUser={currentUser}><Register/></MainLayout>}/>
             <Route path="/login" element={<MainLayout currentUser={currentUser}><Login /></MainLayout>}/>
+            <Route path="/recovery" element={<MainLayout currentUser={currentUser}><Recovery/></MainLayout>}/>
           </Routes>
       </div>
     );
